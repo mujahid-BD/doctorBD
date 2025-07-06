@@ -1,23 +1,38 @@
 [
   {
-    "name": "Dr. Arif Hossain",
-    "degree": "MBBS, FCPS (Medicine)",
-    "speciality": "Medicine",
-    "hospital": "Dhaka Medical College",
-    "district": "Dhaka"
+    "name_en": "Dr. Arif Hossain",
+    "name_bn": "ডাঃ আরিফ হোসেন",
+    "degree_en": "MBBS, FCPS (Medicine)",
+    "degree_bn": "এমবিবিএস, এফসিপিএস (মেডিসিন)",
+    "speciality_en": "Medicine",
+    "speciality_bn": "মেডিসিন",
+    "hospital_en": "Dhaka Medical College",
+    "hospital_bn": "ঢাকা মেডিকেল কলেজ",
+    "district_en": "Dhaka",
+    "district_bn": "ঢাকা"
   },
   {
-    "name": "Dr. Sanjida Rahman",
-    "degree": "MBBS, MS (Gynae)",
-    "speciality": "Gynecology",
-    "hospital": "Sir Salimullah Medical",
-    "district": "Barisal"
+    "name_en": "Dr. Sanjida Rahman",
+    "name_bn": "ডাঃ সানজিদা রহমান",
+    "degree_en": "MBBS, MS (Gynae)",
+    "degree_bn": "এমবিবিএস, এমএস (গাইনী)",
+    "speciality_en": "Gynecology",
+    "speciality_bn": "গাইনোকলজি",
+    "hospital_en": "Sir Salimullah Medical College",
+    "hospital_bn": "স্যার সলিমুল্লাহ মেডিকেল কলেজ",
+    "district_en": "Barisal",
+    "district_bn": "বরিশাল"
   },
   {
-    "name": "Dr. Mahbub Alam",
-    "degree": "MBBS, MD (Cardiology)",
-    "speciality": "Cardiology",
-    "hospital": "Chittagong Medical",
-    "district": "Chittagong"
+    "name_en": "Dr. Mahbub Alam",
+    "name_bn": "ডাঃ মাহবুব আলম",
+    "degree_en": "MBBS, MD (Cardiology)",
+    "degree_bn": "এমবিবিএস, এমডি (হৃদরোগ)",
+    "speciality_en": "Cardiology",
+    "speciality_bn": "হৃদরোগ",
+    "hospital_en": "Chittagong Medical College",
+    "hospital_bn": "চট্টগ্রাম মেডিকেল কলেজ",
+    "district_en": "Chittagong",
+    "district_bn": "চট্টগ্রাম"
   }
 ]
