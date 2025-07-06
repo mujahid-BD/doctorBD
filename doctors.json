@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Dr. Arif Hossain",
+    "degree": "MBBS, FCPS (Medicine)",
+    "speciality": "Medicine",
+    "hospital": "Dhaka Medical College",
+    "district": "Dhaka"
+  },
+  {
+    "name": "Dr. Sanjida Rahman",
+    "degree": "MBBS, MS (Gynae)",
+    "speciality": "Gynecology",
+    "hospital": "Sir Salimullah Medical",
+    "district": "Barisal"
+  },
+  {
+    "name": "Dr. Mahbub Alam",
+    "degree": "MBBS, MD (Cardiology)",
+    "speciality": "Cardiology",
+    "hospital": "Chittagong Medical",
+    "district": "Chittagong"
+  }
+]
