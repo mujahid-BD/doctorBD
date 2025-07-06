@@ -78,18 +78,25 @@ function renderDoctors() {
   container.innerHTML = "";
 
   paginated.forEach(d => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <h3>${d.name}</h3>
-      <p>📚 ${dict["degree"]}: ${d.degree}</p>
-      <p>🩺 ${dict["speciality"]}: ${d.speciality}</p>
-      <p>🏥 ${dict["hospital"]}: ${d.hospital}</p>
-      <p>📍 ${dict["district"]}: ${d.district}</p>
-    `;
-    container.appendChild(card);
-  });
+  const name = currentLang === 'bn' ? d.name_bn : d.name_en;
+  const degree = currentLang === 'bn' ? d.degree_bn : d.degree_en;
+  const speciality = currentLang === 'bn' ? d.speciality_bn : d.speciality_en;
+  const hospital = currentLang === 'bn' ? d.hospital_bn : d.hospital_en;
+  const district = currentLang === 'bn' ? d.district_bn : d.district_en;
 
+  const dict = currentLang === 'bn' ? lang_bn : lang_en;
+
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <h3>${name}</h3>
+    <p>📚 ${dict["degree"]}: ${degree}</p>
+    <p>🩺 ${dict["speciality"]}: ${speciality}</p>
+    <p>🏥 ${dict["hospital"]}: ${hospital}</p>
+    <p>📍 ${dict["district"]}: ${district}</p>
+  `;
+  container.appendChild(card);
+});
   renderPagination(totalPages);
 }
 
