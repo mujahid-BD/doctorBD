@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bangladesh Doctor Directory</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1 data-i18n="title">Bangladesh Doctor Directory</h1>
+    <select id="languageSwitcher">
+      <option value="en">English</option>
+      <option value="bn">বাংলা</option>
+    </select>
+  </header>
+
+  <section class="filters">
+    <input type="text" id="searchBox" placeholder="Search doctor, hospital, district..." data-i18n-placeholder="search_placeholder"/>
+    <select id="districtFilter">
+      <option value="">All Districts</option>
+    </select>
+    <select id="specialityFilter">
+      <option value="">All Specialties</option>
+    </select>
+  </section>
+
+  <section id="doctorList" class="doctor-list"></section>
+  <div id="pagination"></div>
+
+  <footer>
+    <p>&copy; 2025 - <span data-i18n="title">Bangladesh Doctor Directory</span></p>
+  </footer>
+
+  <script src="lang/en.js"></script>
+  <script src="lang/bn.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
