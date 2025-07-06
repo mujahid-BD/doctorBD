@@ -1,133 +1,140 @@
 let doctors = [];
+let filteredDoctors = [];
 let currentPage = 1;
-const itemsPerPage = 2;
+const perPage = 6;
 let currentLang = 'en';
 
-function translateUI() {
-  const dict = currentLang === 'bn' ? lang_bn : lang_en;
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (dict[key]) el.textContent = dict[key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    if (dict[key]) el.setAttribute('placeholder', dict[key]);
-  });
-}
+// Load language files dynamically
+const dict = () => (currentLang === 'bn' ? lang_bn : lang_en);
 
-document.getElementById('languageSwitcher').addEventListener('change', (e) => {
-  currentLang = e.target.value;
-  translateUI();
-  renderDoctors();
-});
-
-fetch("doctors.json")
-  .then((res) => res.json())
-  .then((data) => {
+// Load doctors from Google Sheet API
+fetch("https://script.google.com/macros/s/AKfycbwk_8XD7oSYmWn5s-dvaHYp4Jf3DO676Hkg6u8_eZct5nYkhxaI2tHpo8RXtg4AIeA/exec")
+  .then(res => res.json())
+  .then(data => {
     doctors = data;
+    filteredDoctors = [...doctors];
     populateFilters();
     renderDoctors();
-    translateUI();
   });
 
+// Populate dropdown filters
 function populateFilters() {
-  const districts = [...new Set(doctors.map(d => d.district))];
-  const specialities = [...new Set(doctors.map(d => d.speciality))];
+  const districtSet = new Set();
+  const specialitySet = new Set();
+
+  doctors.forEach(d => {
+    districtSet.add(currentLang === 'bn' ? d.district_bn : d.district_en);
+    specialitySet.add(currentLang === 'bn' ? d.speciality_bn : d.speciality_en);
+  });
 
   const districtFilter = document.getElementById("districtFilter");
   const specialityFilter = document.getElementById("specialityFilter");
 
-  districts.forEach(d => {
-    const option = document.createElement("option");
-    option.value = d;
-    option.textContent = d;
-    districtFilter.appendChild(option);
+  districtFilter.innerHTML = `<option value="">${dict()["district"]}</option>`;
+  specialityFilter.innerHTML = `<option value="">${dict()["speciality"]}</option>`;
+
+  Array.from(districtSet).sort().forEach(d => {
+    const opt = document.createElement("option");
+    opt.value = d;
+    opt.textContent = d;
+    districtFilter.appendChild(opt);
   });
 
-  specialities.forEach(s => {
-    const option = document.createElement("option");
-    option.value = s;
-    option.textContent = s;
-    specialityFilter.appendChild(option);
+  Array.from(specialitySet).sort().forEach(s => {
+    const opt = document.createElement("option");
+    opt.value = s;
+    opt.textContent = s;
+    specialityFilter.appendChild(opt);
   });
 }
 
+// Render doctors list
 function renderDoctors() {
-  const searchTerm = document.getElementById("searchBox").value.toLowerCase();
-  const district = document.getElementById("districtFilter").value;
-  const speciality = document.getElementById("specialityFilter").value;
-  const dict = currentLang === 'bn' ? lang_bn : lang_en;
-
-  let filtered = doctors.filter(d => {
-    return (
-      (d.name.toLowerCase().includes(searchTerm) ||
-       d.hospital.toLowerCase().includes(searchTerm) ||
-       d.district.toLowerCase().includes(searchTerm)) &&
-      (district === "" || d.district === district) &&
-      (speciality === "" || d.speciality === speciality)
-    );
-  });
-
-  const totalPages = Math.ceil(filtered.length / itemsPerPage);
-  const paginated = filtered.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
   const container = document.getElementById("doctorList");
   container.innerHTML = "";
 
+  const start = (currentPage - 1) * perPage;
+  const paginated = filteredDoctors.slice(start, start + perPage);
+
   paginated.forEach(d => {
-  const name = currentLang === 'bn' ? d.name_bn : d.name_en;
-  const degree = currentLang === 'bn' ? d.degree_bn : d.degree_en;
-  const speciality = currentLang === 'bn' ? d.speciality_bn : d.speciality_en;
-  const hospital = currentLang === 'bn' ? d.hospital_bn : d.hospital_en;
-  const district = currentLang === 'bn' ? d.district_bn : d.district_en;
+    const name = currentLang === 'bn' ? d.name_bn : d.name_en;
+    const degree = currentLang === 'bn' ? d.degree_bn : d.degree_en;
+    const speciality = currentLang === 'bn' ? d.speciality_bn : d.speciality_en;
+    const hospital = currentLang === 'bn' ? d.hospital_bn : d.hospital_en;
+    const district = currentLang === 'bn' ? d.district_bn : d.district_en;
 
-  const dict = currentLang === 'bn' ? lang_bn : lang_en;
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <h3>${name}</h3>
+      <p>📚 ${dict()["degree"]}: ${degree}</p>
+      <p>🩺 ${dict()["speciality"]}: ${speciality}</p>
+      <p>🏥 ${dict()["hospital"]}: ${hospital}</p>
+      <p>📍 ${dict()["district"]}: ${district}</p>
+    `;
+    container.appendChild(card);
+  });
 
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <h3>${name}</h3>
-    <p>📚 ${dict["degree"]}: ${degree}</p>
-    <p>🩺 ${dict["speciality"]}: ${speciality}</p>
-    <p>🏥 ${dict["hospital"]}: ${hospital}</p>
-    <p>📍 ${dict["district"]}: ${district}</p>
-  `;
-  container.appendChild(card);
-});
-  renderPagination(totalPages);
+  renderPagination();
 }
 
-function renderPagination(totalPages) {
+// Pagination UI
+function renderPagination() {
+  const totalPages = Math.ceil(filteredDoctors.length / perPage);
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
 
   for (let i = 1; i <= totalPages; i++) {
     const btn = document.createElement("button");
-    btn.className = "page-btn";
     btn.textContent = i;
-    if (i === currentPage) btn.style.backgroundColor = "#005846";
     btn.onclick = () => {
       currentPage = i;
       renderDoctors();
     };
+    if (i === currentPage) btn.classList.add("active");
     pagination.appendChild(btn);
   }
 }
 
-document.getElementById("searchBox").addEventListener("input", () => {
-  currentPage = 1;
-  renderDoctors();
+// Language switch
+document.getElementById('languageSwitcher').addEventListener('change', (e) => {
+  currentLang = e.target.value;
+  translateUI();
+  populateFilters();
+  applyFilters();
 });
 
-document.getElementById("districtFilter").addEventListener("change", () => {
-  currentPage = 1;
-  renderDoctors();
-});
+// Search + Filter logic
+document.getElementById("search").addEventListener("input", applyFilters);
+document.getElementById("districtFilter").addEventListener("change", applyFilters);
+document.getElementById("specialityFilter").addEventListener("change", applyFilters);
 
-document.getElementById("specialityFilter").addEventListener("change", () => {
+function applyFilters() {
+  const search = document.getElementById("search").value.toLowerCase();
+  const district = document.getElementById("districtFilter").value;
+  const speciality = document.getElementById("specialityFilter").value;
+
+  filteredDoctors = doctors.filter(d => {
+    const name = currentLang === 'bn' ? d.name_bn : d.name_en;
+    const degree = currentLang === 'bn' ? d.degree_bn : d.degree_en;
+    const hosp = currentLang === 'bn' ? d.hospital_bn : d.hospital_en;
+    const dist = currentLang === 'bn' ? d.district_bn : d.district_en;
+    const spec = currentLang === 'bn' ? d.speciality_bn : d.speciality_en;
+
+    return (
+      (name + degree + hosp + dist + spec).toLowerCase().includes(search) &&
+      (district === "" || dist === district) &&
+      (speciality === "" || spec === speciality)
+    );
+  });
+
   currentPage = 1;
   renderDoctors();
-});
+}
+
+// UI translation
+function translateUI() {
+  const d = dict();
+  document.getElementById("title").textContent = d["title"];
+  document.getElementById("search").placeholder = d["search_placeholder"];
+}
