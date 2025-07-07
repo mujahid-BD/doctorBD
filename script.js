@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let doctors = [];
   let filteredDoctors = [];
   let currentPage = 1;
-  const perPage = 10;
+  const perPage = 18;
   let currentLang = 'en';
 
   const dict = () => (currentLang === 'bn' ? lang_bn : lang_en);
