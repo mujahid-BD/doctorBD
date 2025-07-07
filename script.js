@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const dict = () => (currentLang === 'bn' ? lang_bn : lang_en);
 
-  fetch("https://script.google.com/macros/s/AKfycbzsIvCV16mKps0gj2Zq-d10E1dHnXXqwJ_Y-tUq-KGq9atrKQ8gdaTiRLqGM6rYvE0/exec")
+  fetch("https://script.google.com/macros/s/AKfycbwk_8XD7oSYmWn5s-dvaHYp4Jf3DO676Hkg6u8_eZct5nYkhxaI2tHpo8RXtg4AIeA/exec")
     .then(res => res.json())
     .then(data => {
       doctors = data;
