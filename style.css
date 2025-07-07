@@ -190,26 +190,50 @@ footer {
 }
 
 /* ✅ Ad Slider Section */
-.ad-container {
-  max-width: 1320px;
-  height: 479px;
-  overflow: hidden;
-  margin: 2rem auto;
-  position: relative;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+.ad-slider-section {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem auto;
 }
 
-.ad-slider {
+.ad-slider-box {
+  width: 1350px;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+  position: relative;
+  background: #fff;
+}
+
+.ad-slider-box img {
   width: 100%;
   height: 100%;
-  position: relative;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
 }
 
-.ad-slider img {
-  width: 1320px;
-  height: 479px;
-  object-fit: cover;
-  display: block;
-  transition: opacity 0.5s ease-in-out;
+.ad-slider-box img.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* ✅ Responsive for Mobile */
+@media (max-width: 768px) {
+  .ad-slider-box {
+    width: 95%;
+    height: 180px;
+  }
+
+  .navbar {
+    flex-direction: column;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
 }
