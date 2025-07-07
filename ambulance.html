@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ambulance Services | Doctor Directory</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <ul class="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+        <li><a href="ambulance.html" class="active">Ambulance</a></li>
+        <li><a href="blood-donor.html">Blood Donors</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <h1>🚑 Emergency Ambulance Services</h1>
+  </header>
+
+  <!-- Filter Section -->
+  <section class="filters">
+    <input type="text" id="ambulanceSearch" placeholder="Search district, service name...">
+  </section>
+
+  <!-- Ambulance List -->
+  <section class="doctor-list" id="ambulanceList">
+    <!-- Sample Static Card -->
+    <div class="card">
+      <h3>Dhaka Ambulance Service</h3>
+      <p>📍 District: Dhaka</p>
+      <p>📞 Contact: 01700000000</p>
+      <p>🚐 Type: ICU Ambulance</p>
+    </div>
+
+    <div class="card">
+      <h3>Chittagong Ambulance</h3>
+      <p>📍 District: Chattogram</p>
+      <p>📞 Contact: 01800000000</p>
+      <p>🚐 Type: Non-AC Ambulance</p>
+    </div>
+    
+    <!-- You can load from Google Sheet using JS later -->
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 - Bangladesh Doctor Directory |
+    Sponsored by 
+    <a href="https://www.facebook.com/shopmebd24" target="_blank" rel="noopener">
+      <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook Icon" style="vertical-align: middle; width: 18px; height: 18px; margin-right: 4px;">
+      ShopMeBD
+    </a>
+  </footer>
+
+  <!-- Optional JS for Search -->
+  <script>
+    const searchInput = document.getElementById('ambulanceSearch');
+    const ambulanceCards = document.querySelectorAll('#ambulanceList .card');
+
+    searchInput.addEventListener('input', () => {
+      const value = searchInput.value.toLowerCase();
+      ambulanceCards.forEach(card => {
+        card.style.display = card.textContent.toLowerCase().includes(value) ? 'block' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
