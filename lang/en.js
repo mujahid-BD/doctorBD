@@ -4,5 +4,6 @@ const lang_en = {
   "degree": "Degree",
   "speciality": "Specialty",
   "hospital": "Hospital",
+  "hospital_phone": "Phone",
   "district": "District"
 };
