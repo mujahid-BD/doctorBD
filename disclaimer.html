@@ -4,47 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Disclaimer | DoctorBD</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      line-height: 1.6;
-      background-color: #f8f8f8;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
     main {
       flex: 1;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      background-color: #f8f8f8;
+      line-height: 1.6;
     }
-
-    h1 {
+    main h1 {
       color: #005846;
     }
-
-    a {
+    main a {
       color: #005846;
       text-decoration: none;
-    }
-
-    footer {
-      background-color: #eee;
-      padding: 15px;
-      text-align: center;
-      font-size: 0.9rem;
-      border-top: 1px solid #ccc;
-    }
-
-    footer a {
-      color: #005846;
     }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Disclaimer & Data Transparency</h1>
 
+  <!-- Header with Navigation -->
+  <header>
+    <nav>
+      <ul class="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+      </ul>
+    </nav>
+    <h1>Disclaimer & Data Transparency</h1>
+  </header>
+
+  <main>
     <p>
       The information provided on <strong>DoctorBD</strong> is for general informational purposes only.
       We do not guarantee the accuracy, completeness, or currentness of any data shown on this site.
@@ -74,9 +66,13 @@
       <a href="index.html">&larr; Back to Home</a>
     </p>
   </main>
-
   <footer>
-    &copy; 2025 DoctorBD | <a href="index.html">Home</a>
-  </footer>
+  &copy; 2025 - Bangladesh Doctor Directory |
+  Sponsored by 
+  <a href="https://www.facebook.com/shopmebd24" target="_blank" rel="noopener">
+    <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook Icon" style="vertical-align: middle; width: 18px; height: 18px; margin-right: 4px;">
+    ShopMeBD
+  </a>
+</footer>
 </body>
 </html>
