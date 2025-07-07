@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <p>🩺 ${dict()["speciality"]}: ${speciality}</p>
         <p>🏥 ${dict()["hospital"]}: ${hospital}</p>
         <p>📍 ${dict()["district"]}: ${district}</p>
+        <button class="review-btn" onclick="openReviewModal('${d.id}')">Review this doctor</button>
       `;
       container.appendChild(card);
     });
@@ -131,4 +132,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("title").textContent = d["title"];
     document.getElementById("search").placeholder = d["search_placeholder"];
   }
+
+  // Review modal opener (global function)
+  window.openReviewModal = function(doctorId) {
+    document.getElementById("reviewDoctorId").value = doctorId;
+    document.getElementById("reviewModal").style.display = "block";
+  };
 });
