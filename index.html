@@ -8,6 +8,15 @@
 </head>
 <body>
   <header>
+    <!-- Navigation Menu -->
+    <nav>
+      <ul class="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+      </ul>
+    </nav>
+
+    <!-- Page Title & Language -->
     <h1 id="title" data-i18n="title">Bangladesh Doctor Directory</h1>
     <select id="languageSwitcher">
       <option value="en">English</option>
@@ -15,6 +24,7 @@
     </select>
   </header>
 
+  <!-- Filters Section -->
   <section class="filters">
     <input type="text" id="search" placeholder="Search doctor, hospital, district..." data-i18n-placeholder="search_placeholder"/>
     <select id="districtFilter">
@@ -25,13 +35,18 @@
     </select>
   </section>
 
+  <!-- Doctor List -->
   <section id="doctorList" class="doctor-list"></section>
+
+  <!-- Pagination -->
   <div id="pagination"></div>
 
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 - <span data-i18n="title">Bangladesh Doctor Directory</span></p>
   </footer>
 
+  <!-- Scripts -->
   <script src="lang/en.js"></script>
   <script src="lang/bn.js"></script>
   <script src="script.js"></script>
