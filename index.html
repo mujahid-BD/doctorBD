@@ -41,19 +41,79 @@
   <!-- Pagination -->
   <div id="pagination"></div>
 
+  <!-- Review Modal -->
+  <div id="reviewModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('reviewModal').style.display='none'">&times;</span>
+      <h2>Submit a Review</h2>
+      <form id="reviewForm">
+        <input type="hidden" name="doctor_id" id="reviewDoctorId" />
+        
+        <label>Rating:
+          <select name="rating" required>
+            <option value="">Select</option>
+            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+            <option value="4">⭐⭐⭐⭐ Good</option>
+            <option value="3">⭐⭐⭐ Average</option>
+            <option value="2">⭐⭐ Poor</option>
+            <option value="1">⭐ Bad</option>
+          </select>
+        </label>
+        
+        <label>Comment:
+          <textarea name="comment" required></textarea>
+        </label>
+        
+        <label>Your Name (optional):
+          <input name="reviewer_name" />
+        </label>
+        
+        <button type="submit">Submit Review</button>
+        <div id="submitMsg"></div>
+      </form>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer>
-  &copy; 2025 - Bangladesh Doctor Directory |
-  Sponsored by 
-  <a href="https://www.facebook.com/shopmebd24" target="_blank" rel="noopener">
-    <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook Icon" style="vertical-align: middle; width: 18px; height: 18px; margin-right: 4px;">
-    ShopMeBD
-  </a>
-</footer>
+    &copy; 2025 - Bangladesh Doctor Directory |
+    Sponsored by 
+    <a href="https://www.facebook.com/shopmebd24" target="_blank" rel="noopener">
+      <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook Icon" style="vertical-align: middle; width: 18px; height: 18px; margin-right: 4px;">
+      ShopMeBD
+    </a>
+  </footer>
 
   <!-- Scripts -->
   <script src="lang/en.js"></script>
   <script src="lang/bn.js"></script>
   <script src="script.js"></script>
+  <script>
+    // Review form submission
+    document.getElementById("reviewForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch("YOUR_GOOGLE_SCRIPT_URL", {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(res => res.text())
+      .then(msg => {
+        document.getElementById("submitMsg").textContent = "✅ Review submitted for approval.";
+        this.reset();
+      })
+      .catch(() => {
+        document.getElementById("submitMsg").textContent = "❌ Something went wrong!";
+      });
+    });
+
+    // Optional: function to open review modal with doctor ID
+    function openReviewModal(doctorId) {
+      document.getElementById("reviewDoctorId").value = doctorId;
+      document.getElementById("reviewModal").style.display = "block";
+    }
+  </script>
 </body>
 </html>
