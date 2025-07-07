@@ -87,7 +87,8 @@ header {
 }
 
 .review-btn:hover {
-  background-color: #005f4a;
+  background-color: #004d3c;
+  transform: scale(1.05);
 }
 
 footer {
