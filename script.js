@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const dict = () => (currentLang === 'bn' ? lang_bn : lang_en);
 
-  // Load doctor data from Google Sheet
   fetch("https://script.google.com/macros/s/AKfycbwk_8XD7oSYmWn5s-dvaHYp4Jf3DO676Hkg6u8_eZct5nYkhxaI2tHpo8RXtg4AIeA/exec")
     .then(res => res.json())
     .then(data => {
@@ -59,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const degree = currentLang === 'bn' ? d.degree_bn : d.degree_en;
       const speciality = currentLang === 'bn' ? d.speciality_bn : d.speciality_en;
       const hospital = currentLang === 'bn' ? d.hospital_bn : d.hospital_en;
+      const hospitalPhone = currentLang === 'bn' ? d.hospital_phone_bn : d.hospital_phone_en;
       const district = currentLang === 'bn' ? d.district_bn : d.district_en;
 
       const card = document.createElement("div");
@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <p>📚 ${dict()["degree"]}: ${degree}</p>
         <p>🩺 ${dict()["speciality"]}: ${speciality}</p>
         <p>🏥 ${dict()["hospital"]}: ${hospital}</p>
+        <p>📞 ${dict()["hospital_phone"] || "Phone"}: ${hospitalPhone}</p>
         <p>📍 ${dict()["district"]}: ${district}</p>
         <button class="review-btn" onclick="openReviewModal('${d.id}')">${dict()["review_button"] || "Review this doctor"}</button>
       `;
@@ -114,11 +115,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const name = currentLang === 'bn' ? d.name_bn : d.name_en;
       const degree = currentLang === 'bn' ? d.degree_bn : d.degree_en;
       const hosp = currentLang === 'bn' ? d.hospital_bn : d.hospital_en;
+      const phone = currentLang === 'bn' ? d.hospital_phone_bn : d.hospital_phone_en;
       const dist = currentLang === 'bn' ? d.district_bn : d.district_en;
       const spec = currentLang === 'bn' ? d.speciality_bn : d.speciality_en;
 
       return (
-        (name + degree + hosp + dist + spec).toLowerCase().includes(search) &&
+        (name + degree + hosp + phone + dist + spec).toLowerCase().includes(search) &&
         (district === "" || dist === district) &&
         (speciality === "" || spec === speciality)
       );
@@ -134,18 +136,15 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("search").placeholder = d["search_placeholder"];
   }
 
-  // ✅ Review modal opener (global)
   window.openReviewModal = function (doctorId) {
     document.getElementById("reviewDoctorId").value = doctorId;
     document.getElementById("reviewModal").style.display = "block";
   };
 
-  // ✅ Modal closer
   document.getElementById("closeModal").addEventListener("click", () => {
     document.getElementById("reviewModal").style.display = "none";
   });
 
-  // ✅ Review form submit
   document.getElementById("reviewForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -194,6 +193,6 @@ document.addEventListener("DOMContentLoaded", function () {
       adImages[currentAdIndex].style.display = "none";
       currentAdIndex = (currentAdIndex + 1) % adImages.length;
       adImages[currentAdIndex].style.display = "block";
-    }, 4000); // every 4 seconds
+    }, 4000);
   }
 });
