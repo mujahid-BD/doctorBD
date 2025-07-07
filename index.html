@@ -8,15 +8,12 @@
 </head>
 <body>
   <header>
-    <!-- Navigation Menu -->
     <nav>
       <ul class="navbar">
         <li><a href="index.html">Home</a></li>
         <li><a href="disclaimer.html">Disclaimer</a></li>
       </ul>
     </nav>
-
-    <!-- Page Title & Language -->
     <h1 id="title" data-i18n="title">Bangladesh Doctor Directory</h1>
     <select id="languageSwitcher">
       <option value="en">English</option>
@@ -41,35 +38,32 @@
   <!-- Pagination -->
   <div id="pagination"></div>
 
-  <!-- Review Modal -->
+  <!-- ✅ Review Modal -->
   <div id="reviewModal" class="modal" style="display:none;">
     <div class="modal-content">
-      <span class="close" onclick="document.getElementById('reviewModal').style.display='none'">&times;</span>
+      <span class="close" id="closeModal">&times;</span>
       <h2>Submit a Review</h2>
       <form id="reviewForm">
         <input type="hidden" name="doctor_id" id="reviewDoctorId" />
         
-        <label>Rating:
-          <select name="rating" required>
-            <option value="">Select</option>
-            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
-            <option value="4">⭐⭐⭐⭐ Good</option>
-            <option value="3">⭐⭐⭐ Average</option>
-            <option value="2">⭐⭐ Poor</option>
-            <option value="1">⭐ Bad</option>
-          </select>
-        </label>
-        
-        <label>Comment:
-          <textarea name="comment" required></textarea>
-        </label>
-        
-        <label>Your Name (optional):
-          <input name="reviewer_name" />
-        </label>
-        
+        <label for="rating">Rating:</label>
+        <select name="rating" id="rating" required>
+          <option value="">Select</option>
+          <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+          <option value="4">⭐⭐⭐⭐ Good</option>
+          <option value="3">⭐⭐⭐ Average</option>
+          <option value="2">⭐⭐ Poor</option>
+          <option value="1">⭐ Bad</option>
+        </select>
+
+        <label for="comment">Comment:</label>
+        <textarea name="comment" id="comment" rows="4" required></textarea>
+
+        <label for="reviewerName">Your Name (optional):</label>
+        <input type="text" name="reviewer_name" id="reviewerName" />
+
         <button type="submit">Submit Review</button>
-        <div id="submitMsg"></div>
+        <div id="submitMsg" class="submit-msg"></div>
       </form>
     </div>
   </div>
@@ -89,31 +83,41 @@
   <script src="lang/bn.js"></script>
   <script src="script.js"></script>
   <script>
-    // Review form submission
+    // Submit review to Google Sheets
     document.getElementById("reviewForm").addEventListener("submit", function(e) {
       e.preventDefault();
       const formData = new FormData(this);
       const data = Object.fromEntries(formData.entries());
 
-      fetch("YOUR_GOOGLE_SCRIPT_URL", {
+      fetch("https://script.google.com/macros/s/AKfycbzsIvCV16mKps0gj2Zq-d10E1dHnXXqwJ_Y-tUq-KGq9atrKQ8gdaTiRLqGM6rYvE0/exec", {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
       })
       .then(res => res.text())
       .then(msg => {
         document.getElementById("submitMsg").textContent = "✅ Review submitted for approval.";
         this.reset();
+        setTimeout(() => {
+          document.getElementById("reviewModal").style.display = "none";
+          document.getElementById("submitMsg").textContent = "";
+        }, 1500);
       })
       .catch(() => {
         document.getElementById("submitMsg").textContent = "❌ Something went wrong!";
       });
     });
 
-    // Optional: function to open review modal with doctor ID
+    // Modal Open Function
     function openReviewModal(doctorId) {
       document.getElementById("reviewDoctorId").value = doctorId;
       document.getElementById("reviewModal").style.display = "block";
     }
+
+    // Modal Close
+    document.getElementById("closeModal").addEventListener("click", function () {
+      document.getElementById("reviewModal").style.display = "none";
+    });
   </script>
 </body>
 </html>
