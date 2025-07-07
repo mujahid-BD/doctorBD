@@ -137,4 +137,3 @@ function translateUI() {
   const d = dict();
   document.getElementById("title").textContent = d["title"];
   document.getElementById("search").placeholder = d["search_placeholder"];
-}
