@@ -33,20 +33,21 @@
     </select>
   </section>
 
+  <!-- ✅ Ad Section (below filters) -->
+  <section class="ad-section">
+    <div class="ad-box">
+      <img src="ads/ad1.jpg" alt="Ad 1">
+    </div>
+    <div class="ad-box">
+      <img src="ads/ad2.jpg" alt="Ad 2">
+    </div>
+  </section>
+
   <!-- Doctor List -->
   <section id="doctorList" class="doctor-list"></section>
 
   <!-- Pagination -->
   <div id="pagination"></div>
-
-  <!-- ✅ Ad Slider Section -->
-  <section class="ad-container">
-    <div class="ad-slider" id="adSlider">
-      <img src="ads/ad1.jpg" alt="Ad 1">
-      <img src="ads/ad2.jpg" alt="Ad 2">
-      <img src="ads/ad3.jpg" alt="Ad 3">
-    </div>
-  </section>
 
   <!-- ✅ Review Modal -->
   <div id="reviewModal" class="modal" style="display:none;">
@@ -93,23 +94,6 @@
   <script src="lang/bn.js"></script>
   <script src="script.js"></script>
   <script>
-    // ✅ Auto Ad Slider Logic
-    const slider = document.getElementById('adSlider');
-    let slideIndex = 0;
-    const slides = slider.children;
-    const totalSlides = slides.length;
-
-    // Hide all slides initially
-    for (let i = 1; i < totalSlides; i++) {
-      slides[i].style.display = 'none';
-    }
-
-    setInterval(() => {
-      slides[slideIndex].style.display = 'none';
-      slideIndex = (slideIndex + 1) % totalSlides;
-      slides[slideIndex].style.display = 'block';
-    }, 3000); // Every 3 seconds
-
     // ✅ Submit Review
     document.getElementById("reviewForm").addEventListener("submit", function(e) {
       e.preventDefault();
