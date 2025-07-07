@@ -4,5 +4,6 @@ const lang_bn = {
   "degree": "ডিগ্রি",
   "speciality": "বিভাগ",
   "hospital": "হাসপাতাল",
+  "hospital_phone": "ফোন নম্বর",
   "district": "জেলা"
 };
