@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const dict = () => (currentLang === 'bn' ? lang_bn : lang_en);
 
+  // Load doctor data from Google Sheet
   fetch("https://script.google.com/macros/s/AKfycbwk_8XD7oSYmWn5s-dvaHYp4Jf3DO676Hkg6u8_eZct5nYkhxaI2tHpo8RXtg4AIeA/exec")
     .then(res => res.json())
     .then(data => {
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <p>🩺 ${dict()["speciality"]}: ${speciality}</p>
         <p>🏥 ${dict()["hospital"]}: ${hospital}</p>
         <p>📍 ${dict()["district"]}: ${district}</p>
-        <button class="review-btn" onclick="openReviewModal('${d.id}')">Review this doctor</button>
+        <button class="review-btn" onclick="openReviewModal('${d.id}')">${dict()["review_button"] || "Review this doctor"}</button>
       `;
       container.appendChild(card);
     });
@@ -133,9 +134,60 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("search").placeholder = d["search_placeholder"];
   }
 
-  // Review modal opener (global function)
-  window.openReviewModal = function(doctorId) {
+  // ✅ Review modal opener (global)
+  window.openReviewModal = function (doctorId) {
     document.getElementById("reviewDoctorId").value = doctorId;
     document.getElementById("reviewModal").style.display = "block";
   };
+
+  // ✅ Modal closer
+  document.getElementById("closeModal").addEventListener("click", () => {
+    document.getElementById("reviewModal").style.display = "none";
+  });
+
+  // ✅ Review form submit
+  document.getElementById("reviewForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const doctorId = document.getElementById("reviewDoctorId").value;
+    const rating = document.getElementById("rating").value;
+    const comment = document.getElementById("comment").value;
+    const reviewerName = document.getElementById("reviewerName").value;
+
+    fetch("https://script.google.com/macros/s/AKfycbzsIvCV16mKps0gj2Zq-d10E1dHnXXqwJ_Y-tUq-KGq9atrKQ8gdaTiRLqGM6rYvE0/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        doctor_id: doctorId,
+        rating,
+        comment,
+        reviewer_name: reviewerName
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.text())
+      .then(() => {
+        document.getElementById("submitMsg").textContent = "✅ Review submitted successfully!";
+        document.getElementById("reviewForm").reset();
+        setTimeout(() => {
+          document.getElementById("reviewModal").style.display = "none";
+          document.getElementById("submitMsg").textContent = "";
+        }, 1500);
+      })
+      .catch(err => {
+        document.getElementById("submitMsg").textContent = "❌ Submission failed.";
+      });
+  });
+
+  // ✅ Auto Ad Slider (if exists)
+  const adSlider = document.getElementById("adSlider");
+  if (adSlider) {
+    let currentAd = 0;
+    const totalAds = adSlider.children.length;
+    setInterval(() => {
+      currentAd = (currentAd + 1) % totalAds;
+      adSlider.style.transform = `translateX(-${currentAd * 1320}px)`;
+    }, 4000);
+  }
 });
