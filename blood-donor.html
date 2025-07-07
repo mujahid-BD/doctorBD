@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blood Donor List | Doctor Directory</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <ul class="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+        <li><a href="ambulance.html">Ambulance</a></li>
+        <li><a href="blood-donor.html" class="active">Blood Donors</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <h1>🩸 Blood Donor Directory</h1>
+  </header>
+
+  <!-- Filter Section -->
+  <section class="filters">
+    <input type="text" id="bloodSearch" placeholder="Search name, blood group, district...">
+    <select id="bloodGroupFilter">
+      <option value="">All Blood Groups</option>
+      <option value="A+">A+</option>
+      <option value="A-">A-</option>
+      <option value="B+">B+</option>
+      <option value="B-">B-</option>
+      <option value="O+">O+</option>
+      <option value="O-">O-</option>
+      <option value="AB+">AB+</option>
+      <option value="AB-">AB-</option>
+    </select>
+  </section>
+
+  <!-- Blood Donor List -->
+  <section class="doctor-list" id="bloodDonorList">
+    <!-- Sample Static Donor Cards -->
+    <div class="card">
+      <h3>Md. Saifullah</h3>
+      <p>🩸 Blood Group: A+</p>
+      <p>📍 District: Dhaka</p>
+      <p>📞 Contact: 01700000000</p>
+      <p>📆 Last Donation: 2024-06-01</p>
+    </div>
+
+    <div class="card">
+      <h3>Fatema Akter</h3>
+      <p>🩸 Blood Group: O-</p>
+      <p>📍 District: Chittagong</p>
+      <p>📞 Contact: 01800000000</p>
+      <p>📆 Last Donation: 2024-07-01</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 - Bangladesh Doctor Directory |
+    Sponsored by 
+    <a href="https://www.facebook.com/shopmebd24" target="_blank" rel="noopener">
+      <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook Icon" style="vertical-align: middle; width: 18px; height: 18px; margin-right: 4px;">
+      ShopMeBD
+    </a>
+  </footer>
+
+  <!-- Optional JS -->
+  <script>
+    const searchInput = document.getElementById('bloodSearch');
+    const bloodGroupFilter = document.getElementById('bloodGroupFilter');
+    const donorCards = document.querySelectorAll('#bloodDonorList .card');
+
+    function filterDonors() {
+      const search = searchInput.value.toLowerCase();
+      const group = bloodGroupFilter.value;
+
+      donorCards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const matchSearch = text.includes(search);
+        const matchGroup = group === "" || text.includes(group.toLowerCase());
+        card.style.display = matchSearch && matchGroup ? "block" : "none";
+      });
+    }
+
+    searchInput.addEventListener('input', filterDonors);
+    bloodGroupFilter.addEventListener('change', filterDonors);
+  </script>
+</body>
+</html>
