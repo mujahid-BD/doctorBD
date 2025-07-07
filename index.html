@@ -33,13 +33,12 @@
     </select>
   </section>
 
-  <!-- ✅ Ad Section (below filters) -->
-  <section class="ad-section">
-    <div class="ad-box">
-      <img src="ads/ad1.jpg" alt="Ad 1">
-    </div>
-    <div class="ad-box">
+  <!-- ✅ Auto Ad Slider Section -->
+  <section class="ad-slider-section">
+    <div class="ad-slider-box">
+      <img src="ads/ad1.jpg" class="active" alt="Ad 1">
       <img src="ads/ad2.jpg" alt="Ad 2">
+      <img src="ads/ad3.jpg" alt="Ad 3">
     </div>
   </section>
 
@@ -127,6 +126,15 @@
     document.getElementById("closeModal").addEventListener("click", function () {
       document.getElementById("reviewModal").style.display = "none";
     });
+
+    // ✅ Auto Slider Logic
+    const sliderImages = document.querySelectorAll('.ad-slider-box img');
+    let current = 0;
+    setInterval(() => {
+      sliderImages[current].classList.remove('active');
+      current = (current + 1) % sliderImages.length;
+      sliderImages[current].classList.add('active');
+    }, 4000); // 4 seconds
   </script>
 </body>
 </html>
