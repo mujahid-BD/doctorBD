@@ -175,19 +175,25 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("submitMsg").textContent = "";
         }, 1500);
       })
-      .catch(err => {
+      .catch(() => {
         document.getElementById("submitMsg").textContent = "❌ Submission failed.";
       });
   });
 
-  // ✅ Auto Ad Slider (if exists)
-  const adSlider = document.getElementById("adSlider");
-  if (adSlider) {
-    let currentAd = 0;
-    const totalAds = adSlider.children.length;
+  // ✅ Auto Responsive Ad Slider
+  const adSliderBox = document.querySelector(".ad-slider-box");
+  const adImages = adSliderBox?.querySelectorAll("img");
+  let currentAdIndex = 0;
+
+  if (adSliderBox && adImages.length > 1) {
+    adImages.forEach((img, idx) => {
+      img.style.display = idx === 0 ? "block" : "none";
+    });
+
     setInterval(() => {
-      currentAd = (currentAd + 1) % totalAds;
-      adSlider.style.transform = `translateX(-${currentAd * 1320}px)`;
-    }, 4000);
+      adImages[currentAdIndex].style.display = "none";
+      currentAdIndex = (currentAdIndex + 1) % adImages.length;
+      adImages[currentAdIndex].style.display = "block";
+    }, 4000); // every 4 seconds
   }
 });
