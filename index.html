@@ -4,9 +4,55 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bangladesh Doctor Directory</title>
-   <!-- ✅ Google Fonts -->
+  <!-- ✅ Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&family=Roboto&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Responsive Fixes */
+    .filters {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .filters input,
+    .filters select {
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .ad-slider-box {
+      width: 100%;
+      max-width: 1350px;
+      height: auto;
+      overflow: hidden;
+      margin: 1rem auto;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .ad-slider-box img {
+      width: 100%;
+      height: auto;
+      display: none;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .ad-slider-box img.active {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .navbar li {
+        padding: 8px;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Header -->
@@ -61,7 +107,6 @@
       <h2>Submit a Review</h2>
       <form id="reviewForm">
         <input type="hidden" name="doctor_id" id="reviewDoctorId" />
-        
         <label for="rating">Rating:</label>
         <select name="rating" id="rating" required>
           <option value="">Select</option>
@@ -71,13 +116,10 @@
           <option value="2">⭐⭐ Poor</option>
           <option value="1">⭐ Bad</option>
         </select>
-
         <label for="comment">Comment:</label>
         <textarea name="comment" id="comment" rows="4" required></textarea>
-
         <label for="reviewerName">Your Name (optional):</label>
         <input type="text" name="reviewer_name" id="reviewerName" />
-
         <button type="submit">Submit Review</button>
         <div id="submitMsg" class="submit-msg"></div>
       </form>
