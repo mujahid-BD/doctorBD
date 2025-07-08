@@ -216,11 +216,13 @@ footer {
   display: flex;
   justify-content: center;
   margin: 1.5rem auto;
+  padding: 0 1rem;
 }
 
 .ad-slider-box {
-  width: 1350px;
-  height: 250px;
+  width: 100%;
+  max-width: 1350px;
+  aspect-ratio: 27 / 5; /* maintains 1350x250 ratio */
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
