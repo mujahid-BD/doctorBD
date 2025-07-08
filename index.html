@@ -4,52 +4,110 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bangladesh Doctor Directory</title>
+
   <!-- ✅ Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&family=Roboto&display=swap" rel="stylesheet" />
+
+  <!-- ✅ Main Styles -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ Inline Responsive Fixes -->
   <style>
-    /* Responsive Fixes */
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    #languageSwitcher {
+      margin-top: 8px;
+    }
+
     .filters {
-      flex-direction: column;
-      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
     }
 
     .filters input,
     .filters select {
+      padding: 8px;
       width: 90%;
       max-width: 400px;
+      font-size: 1rem;
+    }
+
+    .ad-slider-section {
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
     }
 
     .ad-slider-box {
       width: 100%;
       max-width: 1350px;
-      height: auto;
+      aspect-ratio: 27 / 5;
       overflow: hidden;
-      margin: 1rem auto;
-      border-radius: 8px;
+      margin: 0 auto;
+      border-radius: 10px;
       position: relative;
     }
 
     .ad-slider-box img {
       width: 100%;
-      height: auto;
-      display: none;
+      height: 100%;
       object-fit: cover;
-      border-radius: 8px;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: opacity 0.5s ease;
     }
 
     .ad-slider-box img.active {
       display: block;
+      z-index: 2;
+    }
+
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      gap: 10px;
+      background: #f4f4f4;
+    }
+
+    .navbar li {
+      padding: 10px;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f9f9f9;
+      margin-top: 2rem;
+      font-size: 0.9rem;
     }
 
     @media (max-width: 768px) {
       .navbar {
-        flex-wrap: wrap;
-        justify-content: center;
+        gap: 5px;
       }
 
       .navbar li {
-        padding: 8px;
+        padding: 6px;
+      }
+
+      .ad-slider-box {
+        border-radius: 0;
       }
     }
   </style>
@@ -141,7 +199,7 @@
   <script src="lang/bn.js"></script>
   <script src="script.js"></script>
   <script>
-    // ✅ Submit Review
+    // ✅ Review Modal Logic
     document.getElementById("reviewForm").addEventListener("submit", function(e) {
       e.preventDefault();
       const formData = new FormData(this);
@@ -166,23 +224,18 @@
       });
     });
 
-    // ✅ Modal Functions
-    function openReviewModal(doctorId) {
-      document.getElementById("reviewDoctorId").value = doctorId;
-      document.getElementById("reviewModal").style.display = "block";
-    }
     document.getElementById("closeModal").addEventListener("click", function () {
       document.getElementById("reviewModal").style.display = "none";
     });
 
-    // ✅ Auto Slider Logic
+    // ✅ Ad Auto Slider
     const sliderImages = document.querySelectorAll('.ad-slider-box img');
     let current = 0;
     setInterval(() => {
       sliderImages[current].classList.remove('active');
       current = (current + 1) % sliderImages.length;
       sliderImages[current].classList.add('active');
-    }, 4000); // 4 seconds
+    }, 4000);
   </script>
 </body>
 </html>
