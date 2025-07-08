@@ -64,13 +64,17 @@ document.addEventListener("DOMContentLoaded", function () {
       const card = document.createElement("div");
       card.className = "card";
       card.innerHTML = `
-        <h3>${name}</h3>
-        <p>📚 ${dict()["degree"]}: ${degree}</p>
-        <p>🩺 ${dict()["speciality"]}: ${speciality}</p>
-        <p>🏥 ${dict()["hospital"]}: ${hospital}</p>
-        <p>📞 ${dict()["hospital_phone"] || "Phone"}: ${hospitalPhone}</p>
-        <p>📍 ${dict()["district"]}: ${district}</p>
-        <button class="review-btn" onclick="openReviewModal('${d.id}')">${dict()["review_button"] || "Review this doctor"}</button>
+        <div class="card-content">
+          <h3>${name}</h3>
+          <p>📚 ${dict()["degree"]}: ${degree}</p>
+          <p>🩺 ${dict()["speciality"]}: ${speciality}</p>
+          <p>🏥 ${dict()["hospital"]}: ${hospital}</p>
+          <p>📞 ${dict()["hospital_phone"] || "Phone"}: ${hospitalPhone}</p>
+          <p>📍 ${dict()["district"]}: ${district}</p>
+        </div>
+        <div class="card-footer">
+          <button class="review-btn" onclick="openReviewModal('${d.id}')">${dict()["review_button"] || "Review this doctor"}</button>
+        </div>
       `;
       container.appendChild(card);
     });
